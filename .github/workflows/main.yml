@@ -7,5 +7,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo run
-      - flutter pub get
+      - run: flutter pub get
   
