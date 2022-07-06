@@ -37,12 +37,3 @@ jobs:
           flutter pub get
           flutter build apk --release --flavor prod
           
-      - name: Upload Diawi
-        # You may pin to the exact commit or the version.
-        # uses: rnkdsh/action-upload-diawi@71cc0f6afd5ed99ecaf97426ccb2790a20175f4b
-        uses: rnkdsh/action-upload-diawi@v1.2.1
-        with:
-          # Diawi API access token
-          token: tBsjh0BumgsYduuI3s5BpFMhWaMPRhReea34fcOl2q
-          # APK file to upload on Diawi
-          file: build/app/outputs/flutter-apk/app-development-release.apk
