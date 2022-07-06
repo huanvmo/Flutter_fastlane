@@ -1,0 +1,28 @@
+name: Flutter
+
+on: 
+  push:
+   branches-ignore:
+    - 'develop'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install FLutter
+        uses: britannio/action-install-flutter@v1.1
+
+      - name: Check convension
+        run: |
+          flutter clean
+          flutter pub get
+          flutter pub run build_runner build --delete-conflicting-outputs
+          flutter format --set-exit-if-changed .
+          flutter analyze
+
+
+
+        
