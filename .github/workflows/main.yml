@@ -1,15 +1,54 @@
-name: Run
-on:
-  push:
-    branches: [develop]
-jobs:
-  run:
-    runs-on: ubuntu-latest
-  steps:
-      with:
-        flutter-version: '2.10.4'
-        architecture: x64
-    - run: flutter pub get
-    - run: flutter test
-    - run: flutter build apk
-    - run: flutter build appbundle
+workflows:
+  default-workflow:
+    name: Default Workflow
+    max_build_duration: 30
+    environment:
+      flutter: default
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: '*develop'
+          include: true
+          source: true
+      tag_patterns:
+        - pattern: '*'
+          include: true
+    scripts:
+      # - |
+      #   # set up debug keystore
+      #   rm -f ~/.android/debug.keystore
+      #   keytool -genkeypair \
+      #     -alias androiddebugkey \
+      #     -keypass android \
+      #     -keystore ~/.android/debug.keystore \
+      #     -storepass android \
+      #     -dname 'CN=Android Debug,O=Android,C=US' \
+      #     -keyalg 'RSA' \
+      #     -keysize 2048 \
+      #     -validity 10000
+      # - |
+      #   # set up local properties
+      #   echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
+      - flutter packages pub get
+      - flutter config --enable-web
+      - flutter build appbundle --debug
+      - |
+        # build web
+        flutter build web --release
+        cd build/web
+        # 7z a -r ../web.zip ./*
+    # artifacts:
+    #   - build/**/outputs/apk/**/*.apk
+    #   - build/**/outputs/bundle/**/*.aab
+    #   - build/**/outputs/**/mapping.txt
+    #   - build/web.zip
+    #   - '*.snap'
+    #   - build/windows/**/*.msix
+    #   - flutter_drive.log
+    # publishing:
+    #   email:
+    #     recipients:
+    #       - huanvip2kk@gmail.com
