@@ -35,7 +35,7 @@ jobs:
       - name: build release
         run: |
           flutter pub get
-          flutter build apk --release --flavor development
+          flutter build apk --release --flavor prod
           
       - name: Upload Diawi
         # You may pin to the exact commit or the version.
