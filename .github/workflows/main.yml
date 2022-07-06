@@ -6,6 +6,9 @@ jobs:
   run:
     runs-on: ubuntu-latest
   steps:
+      with:
+        flutter-version: '2.10.4'
+        architecture: x64
     - run: flutter pub get
     - run: flutter test
     - run: flutter build apk
