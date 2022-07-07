@@ -40,6 +40,6 @@ jobs:
         with:
           artifacts: "build/app/outputs/flutter-apk/app-development-release.apk"
           tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.DeplyApp }}
+          token: ${{ secrets.DeployApp }}
 
           
