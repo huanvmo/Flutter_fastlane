@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
-
     
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -34,6 +33,7 @@ jobs:
       - name: build
         run: |
           flutter pub get
+          flutter test
           flutter build apk --release --flavor prod
       - name: release
         uses: ncipollo/release-action@v1
