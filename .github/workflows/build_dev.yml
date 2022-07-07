@@ -21,7 +21,7 @@ jobs:
       - name: Dev release
         uses: rnkdsh/action-upload-diawi@v1.2.6
         with:
-          token: ${{ secrets.buildApp}}
+          token: ${{secrets.buildApp}}
           file: build/app/outputs/flutter-apk/app-dev-release.apk
 
           
