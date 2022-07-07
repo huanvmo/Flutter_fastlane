@@ -18,11 +18,10 @@ jobs:
           flutter pub get
           flutter test
           flutter build apk --release --flavor dev
-          #      - name: release
-          #        uses: ncipollo/release-action@v1
-          #        with:
-          #          artifacts: "build/app/outputs/flutter-apk/app-prod-release.apk"
-          #          tag: v1.0.${{ github.run_number }}
-          #          token: ${{ secrets.DeployApp }}
+      - name: Dev release
+        uses: rnkdsh/action-upload-diawi@v1.2.6
+        with:
+          token: ${{ secrets.buildApp}}
+          file: build/app/outputs/flutter-apk/app-dev-release.apk
 
           
