@@ -1,0 +1,28 @@
+name: Build and release Apk
+
+on:
+  push:
+    branches: [ develop ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Flutter
+        uses: britannio/action-install-flutter@v1.1
+      - name: build dev
+        run: |
+          flutter pub get
+          flutter test
+          flutter build apk --release --flavor dev
+          #      - name: release
+          #        uses: ncipollo/release-action@v1
+          #        with:
+          #          artifacts: "build/app/outputs/flutter-apk/app-prod-release.apk"
+          #          tag: v1.0.${{ github.run_number }}
+          #          token: ${{ secrets.DeployApp }}
+
+          
