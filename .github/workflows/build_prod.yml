@@ -1,27 +1,27 @@
-name: Build and release Apk
+# name: Build and release Apk
 
-on:
-  push:
-    branches: [ prod ]
+# on:
+#   push:
+#     branches: [ prod ]
 
-  workflow_dispatch:
+#   workflow_dispatch:
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install Flutter
-        uses: britannio/action-install-flutter@v1.1
-      - name: build prod
-        run: |
-          flutter pub get
-          flutter test
-          flutter build apk --release --flavor dev
-      - name: Prod release
-        uses: rnkdsh/action-upload-diawi@v1.2.6
-        with:
-          token: ${{ secrets.buildApp}}
-          file: build/app/outputs/flutter-apk/app-prod-release.apk
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Install Flutter
+#         uses: britannio/action-install-flutter@v1.1
+#       - name: build prod
+#         run: |
+#           flutter pub get
+#           flutter test
+#           flutter build apk --release --flavor dev
+#       - name: Prod release
+#         uses: rnkdsh/action-upload-diawi@v1.2.6
+#         with:
+#           token: ${{ secrets.buildApp}}
+#           file: build/app/outputs/flutter-apk/app-prod-release.apk
 
           
