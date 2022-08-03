@@ -13,8 +13,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install Flutter
       uses: britannio/action-install-flutter@v1.1
-    if: github.repositoty == 'develop'
-    steps:
+      
+        steps:
       - name: build dev
         run: |
           flutter pub get
@@ -25,17 +25,29 @@ jobs:
         with:
           token: E9LMyFPhHDXmco7XemJzFR8CjmdMMCnbjmGtKtIeFs
           file: build/app/outputs/flutter-apk/app-dev-release.apk
-    if: github.repositoty == "prod"
-    steps:
-      - name: build prod
-        run: |
-          flutter pub get
-          flutter test
-          flutter build apk --release --flavor prod
-      - name: Dev release
-        uses: rnkdsh/action-upload-diawi@v1.2.6
-        with:
-          token: E9LMyFPhHDXmco7XemJzFR8CjmdMMCnbjmGtKtIeFs
-          file: build/app/outputs/flutter-apk/app-prods-release.apk
+#     if: github.repositoty == 'develop'
+#     steps:
+#       - name: build dev
+#         run: |
+#           flutter pub get
+#           flutter test
+#           flutter build apk --release --flavor dev
+#       - name: Dev release
+#         uses: rnkdsh/action-upload-diawi@v1.2.6
+#         with:
+#           token: E9LMyFPhHDXmco7XemJzFR8CjmdMMCnbjmGtKtIeFs
+#           file: build/app/outputs/flutter-apk/app-dev-release.apk
+#     if: github.repositoty == "prod"
+#     steps:
+#       - name: build prod
+#         run: |
+#           flutter pub get
+#           flutter test
+#           flutter build apk --release --flavor prod
+#       - name: Dev release
+#         uses: rnkdsh/action-upload-diawi@v1.2.6
+#         with:
+#           token: E9LMyFPhHDXmco7XemJzFR8CjmdMMCnbjmGtKtIeFs
+#           file: build/app/outputs/flutter-apk/app-prods-release.apk
 
           
