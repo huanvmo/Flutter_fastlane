@@ -1,10 +1,8 @@
 name: Build and release Apk
 
-on:
-  push:
-    branches: [ prod ]
+on: push
 
-  workflow_dispatch:
+#   workflow_dispatch:
 
 jobs:
   build:
