@@ -20,6 +20,6 @@ jobs:
         uses: rnkdsh/action-upload-diawi@v1.2.6
         with:
           token: ${{ secrets.buildApp}}
-          file: build/app/outputs/flutter-apk/app-prod-release.apk
+          file: build/app/outputs/flutter-apk/app-dev-release.apk
 
           
