@@ -12,19 +12,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install Flutter
-      uses: britannio/action-install-flutter@v1.1
-      
-        steps:
-      - name: build dev
-        run: |
+    - uses: britannio/action-install-flutter@v1.1
+      run: |
           flutter pub get
           flutter test
           flutter build apk --release --flavor dev
-      - name: Dev release
-        uses: rnkdsh/action-upload-diawi@v1.2.6
-        with:
-          token: E9LMyFPhHDXmco7XemJzFR8CjmdMMCnbjmGtKtIeFs
-          file: build/app/outputs/flutter-apk/app-dev-release.apk
+    - uses: rnkdsh/action-upload-diawi@v1.2.6
+      with:
+        token: E9LMyFPhHDXmco7XemJzFR8CjmdMMCnbjmGtKtIeFs
+        file: build/app/outputs/flutter-apk/app-dev-release.apk
 #     if: github.repositoty == 'develop'
 #     steps:
 #       - name: build dev
