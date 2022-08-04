@@ -17,22 +17,12 @@ jobs:
           flutter test
           flutter build apk --release --flavor dev
            steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Get commit hash
-        if: ${{ always() }}
-        run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
-        id: slug
-      - name: Chat Setup
-        if: ${{ always() }}
-        uses: DTherHtun/google-chat-action@v0.8
+      - name: release
+        uses: ncipollo/release-action@v1
         with:
-          project: ${{ github.repository }}
-          commit: ${{ steps.slug.outputs.sha8 }}
-          branch: ${{ github.ref }}
-          status: ${{ job.status }}
-          actionid: ${{ github.repository }}/runs/${{ github.run_id }}
-          webhook: "https://chat.googleapis.com/v1/spaces/5buk74AAAAE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=q4y249Z9d3BLuU9JNau5j5_R1HbaRxdvbvffhISmMZw%3D"
+          artifacts: "build/app/outputs/flutter-apk/app-development-release.apk"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.DeplyApp }}
       # - name: Prod release
       #   uses: rnkdsh/action-upload-diawi@v1.2.6
       #   with:
