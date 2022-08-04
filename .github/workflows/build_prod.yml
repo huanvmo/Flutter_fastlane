@@ -1,32 +1,153 @@
-name: Build and release Apk
+# name: Build and release Apk
 
-on: push
+# on: push
 
-#   workflow_dispatch:
+# #   workflow_dispatch:
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install Flutter
-        uses: britannio/action-install-flutter@v1.1
-      - name: build prod
-        run: |
-          flutter pub get
-          flutter test
-          flutter build apk --release --flavor dev
-           steps:
-      - name: release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "build/app/outputs/flutter-apk/app-development-release.apk"
-          tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.DeplyApp }}
-      # - name: Prod release
-      #   uses: rnkdsh/action-upload-diawi@v1.2.6
-      #   with:
-      #     token: ${{ secrets.buildApp}}
-      #     file: build/app/outputs/flutter-apk/app-dev-release.apk
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Install Flutter
+#         uses: britannio/action-install-flutter@v1.1
+#       - name: build prod
+#         run: |
+#           flutter pub get
+#           flutter test
+#           flutter build apk --release --flavor dev
+#            steps:
+#       - name: release
+#         uses: ncipollo/release-action@v1
+#         with:
+#           artifacts: "build/app/outputs/flutter-apk/app-development-release.apk"
+#           tag: v1.0.${{ github.run_number }}
+#           token: ${{ secrets.DeplyApp }}
+#       # - name: Prod release
+#       #   uses: rnkdsh/action-upload-diawi@v1.2.6
+#       #   with:
+#       #     token: ${{ secrets.buildApp}}
+#       #     file: build/app/outputs/flutter-apk/app-dev-release.apk
 
           
+name: Build Apk
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - product
+  workflow_dispatch:
+
+jobs:
+    analyze:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Install Flutter
+          uses: subosito/flutter-action@v2
+          with:
+            channel: 'stable'
+        - run: echo Install Flutter stable channel Successfully!!
+        - name: Analyze Code and Testing
+          run: |
+            flutter clean
+            flutter pub get
+            flutter pub run build_runner build --delete-conflicting-outputs
+            flutter analyze
+            flutter test
+
+    build-apk:
+      runs-on: ubuntu-latest
+      needs: ["analyze"]
+      steps:
+        - uses: actions/checkout@v2
+        - name: Install Flutter
+          uses: subosito/flutter-action@v2
+          with:
+            channel: 'stable'
+        - run: echo Install Flutter stable channel Successfully!!
+        - name: Setup
+          run: |
+            flutter clean
+            flutter pub get
+            flutter pub run build_runner build --delete-conflicting-outputs
+        - name: Build DEV
+          if: github.base_ref == 'develop'
+          run: flutter build apk --flavor dev -t lib/main_dev.dart
+        - name: BUILD PROD
+          if: github.base_ref == 'product'
+          run: flutter build apk --flavor prod -t lib/main_prod.dart
+
+        - name: Release DEV
+          uses: actions/upload-artifact@v3
+          if: github.base_ref == 'develop'
+          with:
+            name: flavoring-dev
+            path: build/app/outputs/flutter-apk/app-dev-release.apk
+        - name: Release Prod
+          uses: actions/upload-artifact@v3
+          if: github.base_ref == 'product'
+          with:
+            name: flavoring-prod
+            path: build/app/outputs/flutter-apk/app-prod-release.apk
+
+        - name: Action detail
+          run: |
+            echo "Event name: ${{github.event.name}}"
+            echo "Repository: ${{github.repositoryUrl}}"
+            echo "Soure branch: ${{github.head_ref}}"
+            echo "Target branch: ${{github.base_ref}}"
+        - name: Post to Google chat
+          run: |
+            curl --location --request POST '${{ secrets.GOOGLECHATHOOK }}' \
+            --header 'Content-Type: application/json' \
+            --data-raw '{
+                "cards": [
+                    {
+                        "header": {
+                            "title": "${{github.event.name}}",
+                        },
+                        "sections": [
+                            {
+                                "widgets": [
+                                    {
+                                       "keyValue": {
+                                            "topLabel": "Repository",
+                                            "content": "${{ github.repositoryUrl}}"
+                                        },
+                                     },
+                                     {
+                                       "keyValue": {
+                                            "topLabel": "Source branch",
+                                            "content": "${{ github.head_ref }}"
+                                        }
+                                     },
+                                     {
+                                       "keyValue": {
+                                            "topLabel": "Target branch",
+                                            "content": "${{ github.base_ref }}"
+                                        }
+                                     },
+                                     {
+                                        "buttons": [
+                                            {
+                                                "textButton": {
+                                                    "text": "Download link",
+                                                    "onClick": {
+                                                        "openLink": {
+                                                            "url": "https://www.google.com/"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }'
+
+
