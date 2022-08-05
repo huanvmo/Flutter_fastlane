@@ -55,7 +55,7 @@ jobs:
 
     build-apk:
       runs-on: ubuntu-latest
-      needs: ["analyze"]
+      #needs: ["analyze"]
       steps:
         - uses: actions/checkout@v2
         - name: Install Flutter
