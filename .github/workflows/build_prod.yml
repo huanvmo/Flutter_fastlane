@@ -32,12 +32,8 @@
           
 name: Build Apk
 
-on:
-  pull_request:
-    branches:
-      - develop
-      - product
-  workflow_dispatch:
+on: push
+
 
 jobs:
     analyze:
