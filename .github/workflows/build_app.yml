@@ -64,7 +64,7 @@ jobs:
 
       #Release prod
       - name: Release Prod
-        uses: rnkdsh/action-upload-diawi@v1.2.6
+        uses: c
         if: github.ref_name == 'prod'
         with:
           token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
@@ -72,7 +72,7 @@ jobs:
 
       - name: Action detail
         run: |
-            echo "Ref name: ${{github.url}}"
+          echo "Diawi URL = ${{ steps.diawi.outputs['url'] }}"
 
 
 #      - name: Post to Google chat
