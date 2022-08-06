@@ -1,43 +1,9 @@
-# name: Build and release Apk
-
-# on: push
-
-# #   workflow_dispatch:
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Install Flutter
-#         uses: britannio/action-install-flutter@v1.1
-#       - name: build prod
-#         run: |
-#           flutter pub get
-#           flutter test
-#           flutter build apk --release --flavor dev
-#            steps:
-#       - name: release
-#         uses: ncipollo/release-action@v1
-#         with:
-#           artifacts: "build/app/outputs/flutter-apk/app-development-release.apk"
-#           tag: v1.0.${{ github.run_number }}
-#           token: ${{ secrets.DeplyApp }}
-#       # - name: Prod release
-#       #   uses: rnkdsh/action-upload-diawi@v1.2.6
-#       #   with:
-#       #     token: ${{ secrets.buildApp}}
-#       #     file: build/app/outputs/flutter-apk/app-dev-release.apk
-
-
 name: Build app
 
 #https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions
 on:
   pull_request:
-    branches:
-      - develop
-      - product
+    branches: [ develop,prod ]
   workflow_dispatch:
 
 jobs:
