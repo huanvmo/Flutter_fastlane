@@ -84,6 +84,6 @@ jobs:
           commit: echo "ok"
           branch: ${{ github.ref }}
           status: ${{ job.status }}
-          actionid: ${{ steps.diawi-dev.outputs['url'] }}
+          actionid:  echo "ok"
           webhook: ${{secrets.GOOGLE_CHAT_HOOK}}
 
