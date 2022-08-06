@@ -17,22 +17,22 @@ jobs:
             echo "Ref name: ${{github.ref_name}}"
             echo "Secrets key: ${{secrets.DIAWI_TOKEN}}"
 
-      - uses: actions/checkout@v2
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-      - run: echo Install Flutter stable channel Successfully!!
-      - name: Analyze Code and Testing
-        run: |
-          flutter clean
-          flutter pub get
-          flutter analyze
-          flutter test
+#      - uses: actions/checkout@v2
+#      - name: Install Flutter
+#        uses: subosito/flutter-action@v2
+#        with:
+#          channel: 'stable'
+#      - run: echo Install Flutter stable channel Successfully!!
+#      - name: Analyze Code and Testing
+#        run: |
+#          flutter clean
+#          flutter pub get
+#          flutter analyze
+#          flutter test
 
   ##### Build app #####
-#  build-app:
-#    runs-on: ubuntu-latest
+  build-app:
+      runs-on: ubuntu-latest
 #    needs: [ "analyze" ]
       steps:
 #      - uses: actions/checkout@v2
