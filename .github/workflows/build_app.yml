@@ -72,9 +72,9 @@ jobs:
       #          token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
       #          file: build/app/outputs/flutter-apk/app-prod-release.apk
 
-            - name: Action detail
-              run: |
-                echo "Diawi URL = ${{secrets.GOOGLE_CHAT_HOOK}}"
+      - name: Action detail
+        run: |
+          echo "Diawi URL = ${{secrets.GOOGLE_CHAT_HOOK}}"
       - name: Chat Setup
         uses: DTherHtun/google-chat-action@v0.8
         with:
