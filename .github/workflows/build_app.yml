@@ -83,5 +83,5 @@ jobs:
             branch: ${{ github.ref }}
             status: ${{ job.status }}
             actionid: ${{ github.repository }}/runs/${{ github.run_id }}
-            webhook: ${{secrets.GOOGLE_CHAT_HOOK}}
+            webhook: 'https://chat.googleapis.com/v1/spaces/5buk74AAAAE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=q4y249Z9d3BLuU9JNau5j5_R1HbaRxdvbvffhISmMZw%3D'
 
