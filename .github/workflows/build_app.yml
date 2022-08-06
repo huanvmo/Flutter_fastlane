@@ -1,87 +1,24 @@
-name: Build app
-
-#https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions
-on:
-  push:
-    branches: [ develop,prod ]
-  workflow_dispatch:
+name: Sample Testing
+on: [push]
 
 jobs:
-  ##### Analyze app #####
-
-  #  analyze:
-  #    runs-on: ubuntu-latest
-  #    steps:
-  #      - name: Action detail
-  #        run: |
-  #            echo "Ref name: ${{github.ref_name}}"
-  #            echo "Secrets key: ${{secrets.DIAWI_TOKEN}}"
-  #
-  #      - uses: actions/checkout@v2
-  #      - name: Install Flutter
-  #        uses: subosito/flutter-action@v2
-  #        with:
-  #          channel: 'stable'
-  #      - run: echo Install Flutter stable channel Successfully!!
-  #      - name: Analyze Code and Testing
-  #        run: |
-  #          flutter clean
-  #          flutter pub get
-  #          flutter analyze
-  #          flutter test
-
-  ##### Build app #####
-  build-app:
+  my_job:
     runs-on: ubuntu-latest
-    #    needs: [ "analyze" ]
-    steps:
-      #      - uses: actions/checkout@v2
-      #      - name: Install Flutter
-      #        uses: subosito/flutter-action@v2
-      #        with:
-      #          channel: 'stable'
-      #      - run: echo Install Flutter stable channel Successfully!!
-      #      - name: Setup
-      #        run: |
-      #          flutter clean
-      #          flutter pub get
-      #
-      #      #Build
-      #      - name: Build DEV
-      #        if: github.ref_name == 'develop'
-      #        run: flutter build apk --release --flavor dev
-      #      - name: BUILD PROD
-      #        if: github.ref_name == 'prod'
-      #        run: flutter build apk --release --flavor prod
-      #
-      #      #Release dev
-      #      - name: Release DEV
-      #        id: diawi-dev
-      #        uses: rnkdsh/action-upload-diawi@v1.2.6
-      #        if: github.ref_name == 'develop'
-      #        with:
-      #          token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
-      #          file: build/app/outputs/flutter-apk/app-dev-release.apk
-      #
-      #      #Release prod
-      #      - name: Release Prod
-      #        uses: rnkdsh/action-upload-diawi@v1.2.6
-      #        id: diawi-prod
-      #        if: github.ref_name == 'prod'
-      #        with:
-      #          token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
-      #          file: build/app/outputs/flutter-apk/app-prod-release.apk
 
-      - name: Action detail
-        run: |
-          echo "Diawi URL = ${{secrets.GOOGLE_CHAT_HOOK}}"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Get commit hash
+        if: ${{ always() }}
+        run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
+        id: slug
       - name: Chat Setup
+        if: ${{ always() }}
         uses: DTherHtun/google-chat-action@v0.8
         with:
-            project: ${{ github.repository }}
-            commit: echo "ok"
-            branch: ${{ github.ref }}
-            status: ${{ job.status }}
-            actionid: ${{ github.repository }}/runs/${{ github.run_id }}
-            webhook: 'https://chat.googleapis.com/v1/spaces/5buk74AAAAE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=q4y249Z9d3BLuU9JNau5j5_R1HbaRxdvbvffhISmMZw%3D'
-
+          project: ${{ github.repository }}
+          commit: ${{ steps.slug.outputs.sha8 }}
+          branch: ${{ github.ref }}
+          status: ${{ job.status }}
+          actionid: ${{ github.repository }}/runs/${{ github.run_id }}
+          webhook: "https://chat.googleapis.com/v1/spaces/AAAAzPcAy4s/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=MmdzluicdrdkyUAV_QwB6BzlLcIhbfrwNzxVrEllaec%3D&threadKey=git-commit"
