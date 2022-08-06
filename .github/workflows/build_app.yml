@@ -59,7 +59,7 @@ jobs:
         uses: rnkdsh/action-upload-diawi@v1.2.6
         if: github.ref_name == 'develop'
         with:
-          token: ${{ secrets.build_app}}
+          token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
           file: build/app/outputs/flutter-apk/app-dev-release.apk
 
       #Release prod
@@ -67,7 +67,7 @@ jobs:
         uses: rnkdsh/action-upload-diawi@v1.2.6
         if: github.ref_name == 'prod'
         with:
-          token: ${{ secrets.build_app}}
+          token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
           file: build/app/outputs/flutter-apk/app-prod-release.apk
 
 
