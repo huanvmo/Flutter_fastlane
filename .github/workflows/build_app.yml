@@ -9,124 +9,129 @@ on:
 jobs:
   ##### Analyze app #####
 
-#  analyze:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Action detail
-#        run: |
-#            echo "Ref name: ${{github.ref_name}}"
-#            echo "Secrets key: ${{secrets.DIAWI_TOKEN}}"
-#
-#      - uses: actions/checkout@v2
-#      - name: Install Flutter
-#        uses: subosito/flutter-action@v2
-#        with:
-#          channel: 'stable'
-#      - run: echo Install Flutter stable channel Successfully!!
-#      - name: Analyze Code and Testing
-#        run: |
-#          flutter clean
-#          flutter pub get
-#          flutter analyze
-#          flutter test
+  #  analyze:
+  #    runs-on: ubuntu-latest
+  #    steps:
+  #      - name: Action detail
+  #        run: |
+  #            echo "Ref name: ${{github.ref_name}}"
+  #            echo "Secrets key: ${{secrets.DIAWI_TOKEN}}"
+  #
+  #      - uses: actions/checkout@v2
+  #      - name: Install Flutter
+  #        uses: subosito/flutter-action@v2
+  #        with:
+  #          channel: 'stable'
+  #      - run: echo Install Flutter stable channel Successfully!!
+  #      - name: Analyze Code and Testing
+  #        run: |
+  #          flutter clean
+  #          flutter pub get
+  #          flutter analyze
+  #          flutter test
 
   ##### Build app #####
   build-app:
     runs-on: ubuntu-latest
-#    needs: [ "analyze" ]
+    #    needs: [ "analyze" ]
     steps:
-#      - uses: actions/checkout@v2
-#      - name: Install Flutter
-#        uses: subosito/flutter-action@v2
-#        with:
-#          channel: 'stable'
-#      - run: echo Install Flutter stable channel Successfully!!
-#      - name: Setup
-#        run: |
-#          flutter clean
-#          flutter pub get
-#
-#      #Build
-#      - name: Build DEV
-#        if: github.ref_name == 'develop'
-#        run: flutter build apk --release --flavor dev
-#      - name: BUILD PROD
-#        if: github.ref_name == 'prod'
-#        run: flutter build apk --release --flavor prod
-#
-#      #Release dev
-#      - name: Release DEV
-#        id: diawi-dev
-#        uses: rnkdsh/action-upload-diawi@v1.2.6
-#        if: github.ref_name == 'develop'
-#        with:
-#          token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
-#          file: build/app/outputs/flutter-apk/app-dev-release.apk
-#
-#      #Release prod
-#      - name: Release Prod
-#        uses: rnkdsh/action-upload-diawi@v1.2.6
-#        id: diawi-prod
-#        if: github.ref_name == 'prod'
-#        with:
-#          token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
-#          file: build/app/outputs/flutter-apk/app-prod-release.apk
+      #      - uses: actions/checkout@v2
+      #      - name: Install Flutter
+      #        uses: subosito/flutter-action@v2
+      #        with:
+      #          channel: 'stable'
+      #      - run: echo Install Flutter stable channel Successfully!!
+      #      - name: Setup
+      #        run: |
+      #          flutter clean
+      #          flutter pub get
+      #
+      #      #Build
+      #      - name: Build DEV
+      #        if: github.ref_name == 'develop'
+      #        run: flutter build apk --release --flavor dev
+      #      - name: BUILD PROD
+      #        if: github.ref_name == 'prod'
+      #        run: flutter build apk --release --flavor prod
+      #
+      #      #Release dev
+      #      - name: Release DEV
+      #        id: diawi-dev
+      #        uses: rnkdsh/action-upload-diawi@v1.2.6
+      #        if: github.ref_name == 'develop'
+      #        with:
+      #          token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
+      #          file: build/app/outputs/flutter-apk/app-dev-release.apk
+      #
+      #      #Release prod
+      #      - name: Release Prod
+      #        uses: rnkdsh/action-upload-diawi@v1.2.6
+      #        id: diawi-prod
+      #        if: github.ref_name == 'prod'
+      #        with:
+      #          token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
+      #          file: build/app/outputs/flutter-apk/app-prod-release.apk
 
-#      - name: Action detail
-#        run: |
-#          echo "Diawi URL = ${{ steps.diawi-dev.outputs['url'] }}"
+      #      - name: Action detail
+      #        run: |
+      #          echo "Diawi URL = ${{ steps.diawi-dev.outputs['url'] }}"
 
 
       - name: Post to Google chat
         run: |
-          curl --location --request POST '${{secrets.GOOGLE_CHAT_HOOK}}' \
-          --header 'Content-Type: application/json' \
-          --data-raw '{
-              "cards": [
-                  {
-                      "header": {
-                          "title": "${{github.event.name}}",
-                      },
-                      "sections": [
-                          {
-                              "widgets": [
-                                  {
-                                     "keyValue": {
-                                          "topLabel": "Repository",
-                                          "content": "${{ github.repositoryUrl}}"
-                                      },
-                                   },
-                                   {
-                                     "keyValue": {
-                                          "topLabel": "Source branch",
-                                          "content": "${{ github.head_ref }}"
-                                      }
-                                   },
-                                   {
-                                     "keyValue": {
-                                          "topLabel": "Target branch",
-                                          "content": "${{ github.base_ref }}"
-                                      }
-                                   },
-                                   {
-                                      "buttons": [
-                                          {
-                                              "textButton": {
-                                                  "text": "Download link",
-                                                  "onClick": {
-                                                      "openLink": {
-                                                          "url": "steps.diawi-dev.outputs['url']"
-                                                      }
-                                                  }
-                                              }
-                                          }
-                                      ]
-                                  }
-                              ]
-                          }
-                      ]
-                  }
-              ]
-          }'
-
-
+          curl --location --request POST '${{ secrets.GOOGLE_CHAT_HOOK }}' \
+                    --header 'Content-Type: application/json' \
+                    --data-raw '{
+                        "cards": [
+                            {
+                                "header": {
+                                    "title": "Issue Tracker",
+                                    "subtitle": "Issue No: #${{ github.event.issue.number }}"
+                                },
+                                "sections": [
+                                    {
+                                        "widgets": [
+                                            {
+                                               "keyValue": {
+                                                    "topLabel": "Creator",
+                                                    "content": "${{ github.event.issue.user.login }}"
+                                                },
+                                             },
+                                             {
+                                               "keyValue": {
+                                                    "topLabel": "Title",
+                                                    "content": "${{ github.event.issue.title }}"
+                                                }
+                                             },
+                                             {
+                                               "keyValue": {
+                                                    "topLabel": "Assigned Lables",
+                                                    "content": "- ${{ join(github.event.issue.labels.*.name) }}"
+                                                }
+                                             },
+                                             {
+                                               "keyValue": {
+                                                    "topLabel": "Assignees",
+                                                    "content": "- ${{ join(github.event.issue.assignees.*.login) }}"
+                                                }
+                                             },
+                                             {
+                                                "buttons": [
+                                                    {
+                                                        "textButton": {
+                                                            "text": "OPEN ISSUE",
+                                                            "onClick": {
+                                                                "openLink": {
+                                                                    "url": "${{ github.event.issue.html_url }}"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }'
