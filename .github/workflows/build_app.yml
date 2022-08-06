@@ -9,13 +9,13 @@ on:
 jobs:
   ##### Analyze app #####
 
-  analyze:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Action detail
-        run: |
-            echo "Ref name: ${{github.ref_name}}"
-            echo "Secrets key: ${{secrets.DIAWI_TOKEN}}"
+#  analyze:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Action detail
+#        run: |
+#            echo "Ref name: ${{github.ref_name}}"
+#            echo "Secrets key: ${{secrets.DIAWI_TOKEN}}"
 
 #      - uses: actions/checkout@v2
 #      - name: Install Flutter
@@ -69,7 +69,7 @@ jobs:
 #        if: github.ref_name == 'prod'
         with:
           token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
-          file: example.apk
+          file: ../../example.apk
 
       - name: Action detail
         run: |
