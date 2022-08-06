@@ -14,10 +14,8 @@ jobs:
     steps:
       - name: Action detail
         run: |
-            echo "Event name: ${{github.event.name}}"
-            echo "Repository: ${{github.repositoryUrl}}"
-            echo "Soure branch: ${{github.head_ref}}"
-            echo "Target branch: ${{github.ref}}"
+            echo "Ref name: ${{github.ref_name}}"
+
       - uses: actions/checkout@v2
       - name: Install Flutter
         uses: subosito/flutter-action@v2
