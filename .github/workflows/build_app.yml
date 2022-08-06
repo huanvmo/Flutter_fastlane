@@ -83,7 +83,7 @@ jobs:
         uses: DTherHtun/google-chat-action@v0.8
         with:
           project: ${{ github.repository }}
-          commit: echo "ok"
+          commit: ${{ steps.slug.outputs.sha8 }}
           branch: ${{ github.ref }}
           status: ${{ job.status }}
           actionid:  echo "ok"
