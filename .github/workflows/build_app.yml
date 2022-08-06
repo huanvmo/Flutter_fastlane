@@ -2,7 +2,7 @@ name: Build app
 
 #https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions
 on:
-  pull_request:
+  push:
     branches: [ develop,prod ]
   workflow_dispatch:
 
