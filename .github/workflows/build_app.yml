@@ -86,6 +86,6 @@ jobs:
           commit: ${{ steps.slug.outputs.sha8 }}
           branch: ${{ github.ref }}
           status: ${{ job.status }}
-          actionid:  echo "ok"
+          actionid:  ${{ github.repository }}
           webhook: ${{secrets.GOOGLE_CHAT_HOOK}}
 
