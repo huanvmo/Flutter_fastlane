@@ -15,7 +15,7 @@ jobs:
       - name: Action detail
         run: |
             echo "Ref name: ${{github.ref_name}}"
-            echo "Secrets key: ${{secrets.build_app}}"
+            echo "Secrets key: ${{secrets.DIAWI_TOKEN}}"
 
       - uses: actions/checkout@v2
       - name: Install Flutter
