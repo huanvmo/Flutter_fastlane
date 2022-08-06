@@ -70,6 +70,10 @@ jobs:
           token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
           file: build/app/outputs/flutter-apk/app-prod-release.apk
 
+      - name: Action detail
+        run: |
+            echo "Ref name: ${{github.url}}"
+
 
 #      - name: Post to Google chat
 #        run: |
