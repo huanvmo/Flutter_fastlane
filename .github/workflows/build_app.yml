@@ -75,63 +75,13 @@ jobs:
       #      - name: Action detail
       #        run: |
       #          echo "Diawi URL = ${{ steps.diawi-dev.outputs['url'] }}"
+      - name: Chat Setup
+        uses: DTherHtun/google-chat-action@v0.8
+        with:
+            project: ${{ github.repository }}
+            commit: ${{ steps.slug.outputs.sha8 }}
+            branch: ${{ github.ref }}
+            status: ${{ job.status }}
+            actionid: ${{ github.repository }}/runs/${{ github.run_id }}
+            webhook: ${{secrets.GOOGLE_CHAT_HOOK}}
 
-
-      - name: Post to Google chat
-        run: |
-          curl --location --request POST '${{ secrets.GOOGLE_CHAT_HOOK }}' \
-                    --header 'Content-Type: application/json' \
-                    --data-raw '{
-                        "cards": [
-                            {
-                                "header": {
-                                    "title": "Issue Tracker",
-                                    "subtitle": "Issue No: #${{ github.event.issue.number }}"
-                                },
-                                "sections": [
-                                    {
-                                        "widgets": [
-                                            {
-                                               "keyValue": {
-                                                    "topLabel": "Creator",
-                                                    "content": "${{ github.event.issue.user.login }}"
-                                                },
-                                             },
-                                             {
-                                               "keyValue": {
-                                                    "topLabel": "Title",
-                                                    "content": "${{ github.event.issue.title }}"
-                                                }
-                                             },
-                                             {
-                                               "keyValue": {
-                                                    "topLabel": "Assigned Lables",
-                                                    "content": "- ${{ join(github.event.issue.labels.*.name) }}"
-                                                }
-                                             },
-                                             {
-                                               "keyValue": {
-                                                    "topLabel": "Assignees",
-                                                    "content": "- ${{ join(github.event.issue.assignees.*.login) }}"
-                                                }
-                                             },
-                                             {
-                                                "buttons": [
-                                                    {
-                                                        "textButton": {
-                                                            "text": "OPEN ISSUE",
-                                                            "onClick": {
-                                                                "openLink": {
-                                                                    "url": "${{ github.event.issue.html_url }}"
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                ]
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }'
