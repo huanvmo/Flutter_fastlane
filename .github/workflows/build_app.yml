@@ -79,7 +79,7 @@ jobs:
 
       - name: Post to Google chat
         run: |
-          curl --location --request POST '${{ secrets.GOOGLECHATHOOK }}' \
+          curl --location --request POST 'https://chat.googleapis.com/v1/spaces/5buk74AAAAE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=q4y249Z9d3BLuU9JNau5j5_R1HbaRxdvbvffhISmMZw%3D' \
           --header 'Content-Type: application/json' \
           --data-raw '{
               "cards": [
