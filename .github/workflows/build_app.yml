@@ -64,7 +64,7 @@ jobs:
 
       #Release prod
       - name: Release Prod
-        uses: c
+        uses: rnkdsh/action-upload-diawi@v1.2.6
         if: github.ref_name == 'prod'
         with:
           token: mboZQ146Ikpkq4yEeYVEorOggw8oFVmxTkHNVb4p6A
