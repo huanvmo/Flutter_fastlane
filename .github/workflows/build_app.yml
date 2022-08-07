@@ -74,7 +74,7 @@ jobs:
 
       - name: Post to Google chat
         run: |
-          curl --location --request POST 'https://chat.googleapis.com/v1/spaces/5buk74AAAAE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=yEigxMeTIU48jazjxY4vwOYioO86mtygpn6pR6ZCbVU%3D&threadKey=push' \
+          curl --location --request POST 'https://chat.googleapis.com/v1/spaces/5buk74AAAAE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=yEigxMeTIU48jazjxY4vwOYioO86mtygpn6pR6ZCbVU%3D' \
           --header 'Content-Type: application/json' \
           --data-raw '{
               "cards": [
