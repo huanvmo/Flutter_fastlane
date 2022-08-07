@@ -88,19 +88,19 @@ jobs:
                                   {
                                      "keyValue": {
                                           "topLabel": "Repository",
-                                          "content": "${{ github.repositoryUrl}}"
+                                          "content": "ok"
                                       },
                                    },
                                    {
                                      "keyValue": {
                                           "topLabel": "Source branch",
-                                          "content": "${{ github.head_ref }}"
+                                          "content": "ok"
                                       }
                                    },
                                    {
                                      "keyValue": {
                                           "topLabel": "Target branch",
-                                          "content": "${{ github.base_ref }}"
+                                          "content": "ok"
                                       }
                                    },
                                    {
@@ -110,7 +110,7 @@ jobs:
                                                   "text": "Download link",
                                                   "onClick": {
                                                       "openLink": {
-                                                          "url": "steps.diawi-dev.outputs['url']"
+                                                          "url": "ok"
                                                       }
                                                   }
                                               }
