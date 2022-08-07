@@ -1,7 +1,8 @@
 name: Build app
 
 #https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions
-on: push
+on:
+  push
   workflow_dispatch:
 
 jobs:
